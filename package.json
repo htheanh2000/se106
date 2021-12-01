@@ -20,7 +20,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "homepage": "https://github.com/htheanh2000/se106",
+    "homepage": "http://htheanh2000.github.io/se106",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
