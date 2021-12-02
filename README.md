@@ -1,7 +1,7 @@
 ## SE106 coding project
 
 # Cấu hình cần có
-- Node JS 
+- Node JS ( https://nodejs.org/en/ )
 
 # Sử dụng terminal:
 
@@ -15,4 +15,4 @@
  - Nhập các input cần thiết
  - Ấn nut Run để chạy hàm mới được tạo
  - Kết quả sẽ được xuất ra màn hình
- - 
+ 
