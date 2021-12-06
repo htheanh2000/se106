@@ -1,9 +1,8 @@
 
 import './App.scss'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import ts from "typescript";
-
-
+import FileSaver, { saveAs } from 'file-saver';
 
 type parseObject = {
   name: string,
@@ -41,6 +40,7 @@ function App() {
   const [output, setOutput] = useState<string>('')
   const [object, setObject] = useState<parseObject>(INIT_OBJECT)
 
+  const fileRef = useRef<any>()
   const onClickChangeBtn = () => {
     // setOutput(input)
     const newInput = input.toLowerCase()
@@ -109,11 +109,6 @@ function App() {
           const ttIndex = element.indexOf('tt')
           const startIndex = vmIndex > ttIndex ? vmIndex : ttIndex
           const indexName = element.substring(startIndex + 2, thIndex)
-          // console.log('element',element);
-          // console.log('startIndex',startIndex);
-          // console.log('thIndex', thIndex);
-          // console.log('indexName',indexName);
-
           const startValue = element.substring(element.indexOf('{') + 1, element.indexOf('..'))
           const endValue = element.substring(element.indexOf('..') + 2, element.length)
           string = `
@@ -220,17 +215,41 @@ function App() {
     }
   }
 
+  const onChangeFile = (event: any) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    let fileData = new FileReader();
+    fileData.onloadend = handleFile;
+    fileData.readAsText(file);
 
+    setInput(file)
+  }
 
-  // f( {
-  //   a: [1,2,3],
-  //   n: 2
-  // })
+  const handleFile = (e: any) => {
+    const content = e.target.result;
+    console.log('file content', content)
+    setInput(content)
+  }
+
+  const chooseFile = () => {
+    fileRef.current.click()
+  }
+
+  const downloadInput = () => {
+    var blob = new Blob([input], { type: "text/plain;charset=utf-8" });
+    FileSaver.saveAs(blob, "input.txt");
+  }
+
+  const downloadOutput = () => {
+    var blob = new Blob([output], { type: "text/plain;charset=utf-8" });
+    FileSaver.saveAs(blob, "output.txt");
+  }
 
   return (
     <div className='App'>
       <div className='input'>
-        <textarea className='textArea' value={input} rows={9} cols={50} placeholder='input' onChange={(e) => setInput(e.target.value)}></textarea>
+        <textarea className='textArea' value={input} cols={50} placeholder='input' onChange={(e) => setInput(e.target.value)}></textarea>
         <div className='control'>
           <button className='control__btn' onClick={onClickChangeBtn}>Change</button>
           {
@@ -240,7 +259,33 @@ function App() {
           }
           <button className='control__btn' onClick={run}>Run</button>
         </div>
-        <textarea className='textArea' value={output} rows={9} cols={50} placeholder='output' readOnly></textarea>
+        {/* <textarea className='textArea' value={output} rows={9} cols={50} placeholder='output' readOnly>
+        </textarea> */}
+
+        <div className='output'>
+          <p>
+            <span>const </span>
+            <span className='name'>{object.name}</span>
+            <span className=''>= ({`{${object.parameter.map((param: any) => param.name)}} : {${object.parameter.map((param: any) => param.name + ':' + param.type)}}`}) ={'>'} {'{'}</span>
+          </p>
+          <p className='tab1'>{`let ${object.result.name}: ${object.result.type};`}</p>
+          <p className='tab2'>{`if(${object.pre || 1}) {`}</p>
+          <p className='tab3'>{` ${object.post};`}</p>
+          <p className='tab3'><span className='alert'>alert</span>{`(${object.result.name});`}</p>
+          <p className='tab3'><span className='return'>return</span>{` ${object.result.name};`}</p>
+          <p className='tab2'>{`}`}</p>
+          <p className='tab2'>{`else {`}</p>
+          <p className='tab4'><span className='alert'>alert</span>('Invalid parameter!');</p>
+          <p className='tab3'>{'}'}</p>
+          <p className=''>{'}'}</p>
+        </div>
+
+      </div>
+      <div>
+        <input type='file' accept=".txt" ref={fileRef} onChange={onChangeFile} className='noneDisplay' />
+        <button className='control__btn' onClick={chooseFile}>Choose file</button>
+        <button className='control__btn' onClick={downloadInput}>Download input file</button>
+        <button className='control__btn' onClick={downloadOutput}>Download output file</button>
       </div>
     </div>
   );

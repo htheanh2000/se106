@@ -5,13 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter } from "react-router-dom";
 
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
-
-
 ReactDOM.render(
   <React.StrictMode>
      <HashRouter basename='/'> 

@@ -9,27 +9,67 @@
   .textArea {
     font-size: 20px;
     height: 60vh;
+    width: 35vw;
     padding: 20px;
   }
   .control {
     display: flex;
     flex-direction: column;
     align-items: center;
+    &__btn {
+      width: 200px;
+      height: 50px;
+      margin: 25px;
+      border-radius: 10px;
+      background-color: bisque;
+    }
+    &__input {
+      margin: 5px;
+      height: 40px;
+      width: 150px;
+      border-radius: 5px;
+      font-size: 20px;
+      padding-left: 20px;
+    }
   }
-  .control__btn {
-    width: 200px;
-    height: 50px;
-    margin: 25px;
-    border-radius: 10px;
-    background-color: bisque;
+  
+  .selectFile {
+    justify-content: center;
+    align-items: center;
   }
-  .control__input {
-    margin: 5px;
-    height: 40px;
-    width: 150px;
-    border-radius: 5px;
-    font-size: 20px;
-    padding-left: 20px;
+  .noneDisplay {
+    display: none;
   }
+  .output {
+    border: #000 1px solid;
+    width: 35vw;
+    text-align: left;
+    height: 60vh;
+    padding: 20px;
+    font-weight: 500;
+    line-height: 3px;
+    .name {
+        color: darkseagreen;
+    }
+    .return {
+      color: deeppink;
+    }
+    .alert {
+      color:rgb(255, 183, 0);
+    }
+  }
+  .tab1 {
+    margin-left: 10px;
+  }
+  .tab2 {
+    margin-left: 20px;
+  }
+  .tab3 {
+    margin-left: 30px;
+  }
+  .tab4 {
+    margin-left: 40px;
+  }
+  
 }
 
