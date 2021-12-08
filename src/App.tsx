@@ -259,9 +259,6 @@ function App() {
           }
           <button className='control__btn' onClick={run}>Run</button>
         </div>
-        {/* <textarea className='textArea' value={output} rows={9} cols={50} placeholder='output' readOnly>
-        </textarea> */}
-
         <div className='output'>
           <p>
             <span>const </span>
